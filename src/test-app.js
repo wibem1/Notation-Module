@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.11';
+import {NotationModule} from './notation-module.js?v=0.1.12';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
