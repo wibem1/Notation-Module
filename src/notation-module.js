@@ -1,6 +1,6 @@
-// Notation Module v0.1.12 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.13 — app-independent ABC rendering/playback core.
 export class NotationModule {
-  constructor({paper,onStatus=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
+  constructor({paper,onStatus=()=>{},onSelect=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.onSelect=onSelect;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
   getABC(){return this.abc;}
   static instruments(){
@@ -42,6 +42,7 @@ export class NotationModule {
     const staffwidth=Math.max(220,Math.floor((available-horizontalPadding)/this.scale));
     const out=window.ABCJS.renderAbc(this.paper,this.abc,{
       add_classes:true,
+      clickListener:(abcelem)=>{if(Number.isInteger(abcelem?.startChar)&&Number.isInteger(abcelem?.endChar)&&abcelem.endChar>abcelem.startChar)this.onSelect({start:abcelem.startChar,end:abcelem.endChar,element:abcelem});},
       scale:this.scale,
       staffwidth,
       wrap:{minSpacing:1.8,maxSpacing:2.7,preferredMeasuresPerLine:4,lastLineLimit:2}
