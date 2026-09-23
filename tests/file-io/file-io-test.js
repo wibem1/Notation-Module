@@ -26,13 +26,17 @@ document.getElementById('export').onclick=()=>{const blob=new Blob([abc.value],{
 render();
 document.getElementById('midi').addEventListener('click',function(){
   try{
-    const download=document.getElementById('midi-download');
     if(!currentTune)throw new Error('Keine gerenderte Partitur vorhanden.');
-    const midi=ABCJS.synth.getMidiFile(currentTune,{midiOutputType:'encoded',chordsOff:true});
-    if(!midi||typeof midi!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
-    download.setAttribute('href',midi);
-    download.style.display='inline-block';
-    status.textContent='MIDI-Datei vorbereitet. Jetzt „MIDI-Datei laden“ antippen.';
+    const midiBytes=ABCJS.synth.getMidiFile(currentTune,{midiOutputType:'binary',chordsOff:true});
+    if(!(midiBytes instanceof Uint8Array)||!midiBytes.length)throw new Error('abcjs hat keine MIDI-Binärdaten erzeugt.');
+    const blob=new Blob([midiBytes],{type:'audio/midi'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='file-io-test.mid';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+    status.textContent='MIDI-Datei exportiert.';
   }catch(err){
     status.textContent='MIDI-Exportfehler: '+err.message;
   }
