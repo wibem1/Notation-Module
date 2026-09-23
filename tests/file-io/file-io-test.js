@@ -2,15 +2,19 @@ const file=document.getElementById('file'),abc=document.getElementById('abc'),pa
 function render(){
   try{
     const out=ABCJS.renderAbc(paper,abc.value,{add_classes:true});
-    const tune=out[0];
-    if(!tune){status.textContent='Keine Partitur erzeugt.';return false}
-    const noteCount=paper.querySelectorAll('.abcjs-note').length;
-    const restCount=paper.querySelectorAll('.abcjs-rest').length;
-    if(noteCount+restCount===0){
-      status.textContent='ABC-Datei geladen, aber abcjs konnte keine Musiknoten oder Pausen daraus erzeugen.';
+    const tunes=out.length;
+    const notes=paper.querySelectorAll('.abcjs-note').length;
+    const rests=paper.querySelectorAll('.abcjs-rest').length;
+    const bars=paper.querySelectorAll('.abcjs-bar').length;
+    const staves=paper.querySelectorAll('.abcjs-staff-wrapper').length;
+    const selectable=out.reduce((n,t)=>n+(t?.getSelectableArray?.().filter(x=>x?.abcelem?.el_type==='note').length||0),0);
+    const diag='Tunes: '+tunes+' · Noten(SVG): '+notes+' · Noten(Parser): '+selectable+' · Pausen: '+rests+' · Taktstriche: '+bars+' · Systeme: '+staves;
+    if(!tunes){status.textContent='Keine Partitur erzeugt. · '+diag;return false}
+    if(notes===0&&selectable===0){
+      status.textContent='ABC geladen, aber keine Musik interpretiert. · '+diag;
       return false;
     }
-    status.textContent='Notenbild erzeugt: '+noteCount+' Noten, '+restCount+' Pausen.';
+    status.textContent='Musik erkannt. · '+diag;
     return true;
   }catch(e){status.textContent='Fehler: '+e.message;return false}
 }
