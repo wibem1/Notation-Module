@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.12';
+import {NotationModule} from './notation-module.js?v=0.1.13';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
@@ -6,7 +6,20 @@ const defaultABC=abc.value;
 try{const saved=localStorage.getItem(ABC_STORAGE_KEY);if(saved)abc.value=saved}catch(_){}
 let initialScale=1;
 try{const savedScale=Number(localStorage.getItem(SCALE_STORAGE_KEY));if(savedScale>=0.6&&savedScale<=1.6)initialScale=savedScale}catch(_){}
-const notation=new NotationModule({paper:'paper',scale:initialScale,onStatus:t=>status.textContent=t});
+const notation=new NotationModule({
+  paper:'paper',
+  scale:initialScale,
+  onStatus:t=>status.textContent=t,
+  onSelect:({start,end})=>{
+    abc.focus({preventScroll:true});
+    abc.setSelectionRange(start,end);
+    const before=abc.value.slice(0,start);
+    const line=Math.max(0,before.split('\n').length-1);
+    const lineHeight=parseFloat(getComputedStyle(abc).lineHeight)||22;
+    abc.scrollTop=Math.max(0,line*lineHeight-abc.clientHeight/2);
+    status.textContent='ABC-Stelle zur gewählten Note markiert.';
+  }
+});
 const instrumentSelect=$('instrument');
 NotationModule.instruments().forEach(item=>{const option=document.createElement('option');option.value=item.id;option.textContent=item.label;instrumentSelect.appendChild(option)});
 instrumentSelect.value='violin';
