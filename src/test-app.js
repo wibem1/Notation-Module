@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.21';
+import {NotationModule} from './notation-module.js?v=0.1.22';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
@@ -31,7 +31,17 @@ function selectScoreFromEditor(){
   const start=abc.selectionStart,end=abc.selectionEnd;
   if(notation.selectFromABC(start,end))status.textContent='Note zur ABC-Auswahl markiert.';
 }
-$('render').onclick=()=>{persist();render()};
+$('loadABC').onclick=()=>$('abcFile').click();
+$('abcFile').onchange=async e=>{
+  const file=e.target.files?.[0]; if(!file)return;
+  try{
+    abc.value=await file.text();
+    persist();
+    render();
+    status.textContent='ABC-Datei importiert.';
+  }catch(err){status.textContent='Importfehler: '+err.message}
+  finally{e.target.value=''}
+};
 abc.addEventListener('input',()=>{persist();clearTimeout(window.__renderTimer);window.__renderTimer=setTimeout(render,180)});
 abc.addEventListener('select',selectScoreFromEditor);
 abc.addEventListener('keyup',selectScoreFromEditor);
