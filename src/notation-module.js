@@ -1,4 +1,4 @@
-// Notation Module v0.1.14 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.15 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},onSelect=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.onSelect=onSelect;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
@@ -55,17 +55,23 @@ export class NotationModule {
     this.onStatus(this.visualObj?'Partitur gerendert.':'Keine Partitur erzeugt.');
     return this.visualObj;
   }
+  getInstrument(){
+    const match=this.abc.match(/^%%MIDI program\s+(\d+)/mi);
+    if(match){const program=Number(match[1]);return NotationModule.instruments().find(x=>x.program===program)||null;}
+    return null;
+  }
   selectFromABC(start,end=start){
-    if(!this.visualObj||!Number.isInteger(start))return false;
-    const probe=Math.max(0,start);
-    const elem=this.visualObj.getElementFromChar?.(probe);
-    const target=Array.isArray(elem)?elem[0]:elem;
-    const svgElements=target?.abselem?.elemset||target?.elemset||target?.elements;
-    const paper=typeof this.paper==='string'?document.getElementById(this.paper):this.paper;
-    paper?.querySelectorAll('.abcjs-editor-selected').forEach(el=>el.classList.remove('abcjs-editor-selected'));
-    const nodes=Array.isArray(svgElements)?svgElements:[];
-    nodes.forEach(el=>el?.classList?.add('abcjs-editor-selected'));
-    return nodes.length>0;
+    if(!this.visualObj||!Number.isInteger(start)||!this.visualObj.engraver?.rangeHighlight)return false;
+    let from=Math.max(0,start),to=Number.isInteger(end)?Math.max(from,end):from;
+    // For a caret (no text selection), resolve the containing musical element first.
+    // rangeHighlight itself is designed for text ranges; passing a naked caret can hit boundaries ambiguously.
+    if(from===to){
+      const elem=this.visualObj.getElementFromChar?.(from);
+      if(!elem)return false;
+      from=elem.startChar; to=elem.endChar;
+    }
+    this.visualObj.engraver.rangeHighlight(from,to);
+    return true;
   }
   async play(){
     if(!this.visualObj)throw new Error('Keine Partitur geladen.');
