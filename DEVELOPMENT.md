@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.3
+- Test-WebApp erhält lokales Gedächtnis für den ABC-Text über `localStorage`.
+- ABC-Änderungen werden automatisch lokal gespeichert und beim nächsten Aufruf wiederhergestellt.
+- Neuer Button „Zurücksetzen“ stellt das mitgelieferte Beispiel wieder her und löscht den lokalen Testzustand.
+- Speicherung bleibt bewusst in der Test-WebApp; das app-unabhängige Notation Module selbst bleibt frei von Persistenzlogik.
+- Zieltest: ABC ändern → App schließen/neu öffnen → Änderung vorhanden → Play spielt die wiederhergestellte Fassung.
+
 ## 2026-09-23 — v0.1.2
 - Weiterer iPad-Praxistest: Nach einem vollständigen Neuaufruf der WebApp konnte das Playback ausfallen.
 - AudioContext wird jetzt direkt im Play-Handler erzeugt bzw. reaktiviert und explizit an abcjs übergeben.
