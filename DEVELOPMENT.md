@@ -1,5 +1,14 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.14
+- Gegenrichtung der Auswahl ergänzt: ABC-Editor → Notenbild.
+- Grundlage ist abcjs `getElementFromChar(start)`, dieselbe Zuordnung, die abcjs in seinem Editor-Beispiel für `selectionChangeCallback` verwendet.
+- Notation Module erhält `selectFromABC(start,end)`; die Test-WebApp meldet Cursor-/Auswahländerungen im ABC-Feld an diese Funktion.
+- Zugehörige grafische Note wird im Notenbild rot hervorgehoben; vorherige Editor-Markierung wird entfernt.
+- Die bestehende Richtung Notenbild → ABC bleibt unverändert.
+- Keine Umstellung auf `ABCJS.Editor`; unsere Modularchitektur, Skalierung, Instrumente und Playback bleiben erhalten.
+- Zieltest: Cursor in verschiedene ABC-Noten setzen bzw. Note markieren; jeweils muss die entsprechende grafische Note hervorgehoben werden.
+
 ## 2026-09-23 — v0.1.13
 - Erste Richtung der bidirektionalen Auswahl umgesetzt: Notenbild → ABC-Editor.
 - abcjs-`clickListener` liefert das geklickte interne Element; dessen `startChar`/`endChar` werden als Zeichenbereich im ursprünglichen ABC verwendet.
