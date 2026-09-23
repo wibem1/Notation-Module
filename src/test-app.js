@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.22';
+import {NotationModule} from './notation-module.js?v=0.1.21';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
@@ -31,6 +31,7 @@ function selectScoreFromEditor(){
   const start=abc.selectionStart,end=abc.selectionEnd;
   if(notation.selectFromABC(start,end))status.textContent='Note zur ABC-Auswahl markiert.';
 }
+$('render').onclick=()=>{persist();render()};
 abc.addEventListener('input',()=>{persist();clearTimeout(window.__renderTimer);window.__renderTimer=setTimeout(render,180)});
 abc.addEventListener('select',selectScoreFromEditor);
 abc.addEventListener('keyup',selectScoreFromEditor);
@@ -41,11 +42,7 @@ $('scaleUp').onclick=()=>changeScale(0.1);
 $('play').onclick=()=>notation.play().catch(e=>status.textContent='Wiedergabefehler: '+e.message);
 $('stop').onclick=()=>notation.stop();
 $('print').onclick=()=>notation.print();
-function downloadBlob(blob,name){const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)}
-$('loadABC').onclick=()=>$('abcFile').click();
-$('abcFile').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{abc.value=await file.text();persist();render();status.textContent='ABC-Datei importiert.'}catch(err){status.textContent='Importfehler: '+err.message}finally{e.target.value=''}};
-$('saveABC').onclick=()=>downloadBlob(new Blob([notation.getABC()],{type:'text/vnd.abc;charset=utf-8'}),'partitur.abc');
-$('saveMIDI').onclick=()=>{try{const midi=notation.exportMIDI();downloadBlob(midi,'partitur.mid');status.textContent='MIDI-Datei erzeugt.'}catch(err){status.textContent='MIDI-Exportfehler: '+err.message}};
+$('saveABC').onclick=()=>{const blob=new Blob([notation.getABC()],{type:'text/vnd.abc;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='partitur.abc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('resetABC').onclick=()=>{abc.value=defaultABC;try{localStorage.removeItem(ABC_STORAGE_KEY)}catch(_){}render()};
 showScale();
 render();
