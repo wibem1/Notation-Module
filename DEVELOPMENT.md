@@ -1,5 +1,11 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.2
+- Weiterer iPad-Praxistest: Nach einem vollständigen Neuaufruf der WebApp konnte das Playback ausfallen.
+- AudioContext wird jetzt direkt im Play-Handler erzeugt bzw. reaktiviert und explizit an abcjs übergeben.
+- Damit folgt die Initialisierung der abcjs-Vorgabe, AudioContext im Handler einer Benutzeraktion zu erzeugen.
+- Zieltests: frischer Seitenaufruf → Play sowie ABC ändern → Play.
+
 ## 2026-09-23 — v0.1.1
 - Praxistest auf dem iPad: ABC-Livebearbeitung aktualisierte das Notenbild korrekt, danach konnte das Playback jedoch ausfallen.
 - Playback-Zustand beim Laden/geänderten ABC jetzt sauber zurückgesetzt.
