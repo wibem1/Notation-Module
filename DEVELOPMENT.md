@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.6
+- Fehler aus v0.1.5 korrigiert: abcjs-`scale` wurde gleichzeitig mit `responsive: "resize"` verwendet.
+- `responsive: "resize"` skaliert das erzeugte SVG wieder auf die verfügbare Containerbreite; dadurch war die gewählte Notengröße praktisch nicht sichtbar.
+- Bildschirmdarstellung rendert jetzt ohne responsive Zwangsskalierung; größere Partituren dürfen im Notenbereich horizontal scrollen.
+- Skalierung 50–200 % bleibt als Modul-Funktion erhalten.
+- Zieltest: −/+ muss Noten, Notenlinien und Text sichtbar verkleinern/vergrößern.
+
 ## 2026-09-23 — v0.1.5
 - Skalierung als reguläre Funktion des Notation Modules ergänzt: `getScale()` und `setScale()`.
 - Bereich 50–200 %, Schritte von 10 %.
