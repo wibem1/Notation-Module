@@ -1,4 +1,4 @@
-// Notation Module v0.1.15 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.17 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},onSelect=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.onSelect=onSelect;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
@@ -83,7 +83,7 @@ export class NotationModule {
     const revision=this.revision, visualObj=this.visualObj;
     const synth=new window.ABCJS.synth.CreateSynth();
     this.synth=synth;
-    await synth.init({audioContext:this.audioContext,visualObj});
+    await synth.init({audioContext:this.audioContext,visualObj,options:{chordsOff:true}});
     if(revision!==this.revision||synth!==this.synth)return;
     const primed=await synth.prime();
     if(revision!==this.revision||synth!==this.synth)return;
