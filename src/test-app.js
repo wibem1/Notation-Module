@@ -1,11 +1,11 @@
-import {NotationModule} from './notation-module.js?v=0.1.5';
+import {NotationModule} from './notation-module.js?v=0.1.8';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
 const defaultABC=abc.value;
 try{const saved=localStorage.getItem(ABC_STORAGE_KEY);if(saved)abc.value=saved}catch(_){}
 let initialScale=1;
-try{const savedScale=Number(localStorage.getItem(SCALE_STORAGE_KEY));if(savedScale>=0.5&&savedScale<=2)initialScale=savedScale}catch(_){}
+try{const savedScale=Number(localStorage.getItem(SCALE_STORAGE_KEY));if(savedScale>=0.6&&savedScale<=1.6)initialScale=savedScale}catch(_){}
 const notation=new NotationModule({paper:'paper',scale:initialScale,onStatus:t=>status.textContent=t});
 function render(){try{notation.loadABC(abc.value)}catch(e){status.textContent='Fehler: '+e.message}}
 function persist(){try{localStorage.setItem(ABC_STORAGE_KEY,abc.value)}catch(_){}}
