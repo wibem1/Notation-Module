@@ -1,5 +1,15 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.22
+- Erste Dateiaustausch-Stufe eingebaut.
+- ABC-Import über Dateiauswahl (.abc/.txt): Datei wird in den Editor geladen, lokal gespeichert und sofort neu gerendert.
+- ABC-Export als `partitur.abc`.
+- MIDI-Export als `partitur.mid` über die aktuelle abcjs-API `ABCJS.synth.getMidiFile(..., {midiOutputType:'binary'})`; automatische Akkordbegleitung bleibt dabei deaktiviert.
+- Redundanten Button „Aktualisieren“ entfernt; Live-Rendering bleibt aktiv.
+- „Zurücksetzen“ verständlicher in „Teststück laden“ umbenannt.
+- Bewusst noch nicht enthalten: MIDI-Import und MusicXML-Import/-Export. Dafür braucht das Modul eine echte Konvertierungsschicht; diese wird nicht durch einen Dateibutton vorgetäuscht.
+- Zieltest: ABC exportieren und wieder importieren; Mehrstimmen-Test als MIDI exportieren und in DAW/Player öffnen.
+
 ## 2026-09-23 — v0.1.21
 - Mehrstimmigkeitstest: fehlende Instrumentennamen und falsches Nur-Klavier-Playback korrigiert.
 - Die bisherige Nachbearbeitung entfernte alle `.abcjs-voice-name` außer dem ersten. Bei mehreren Stimmen werden jetzt im ersten System so viele Namen erhalten, wie `V:`-Stimmen deklariert sind; nur durch `wrap` kopierte Wiederholungen werden entfernt.
