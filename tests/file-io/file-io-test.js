@@ -24,14 +24,16 @@ document.getElementById('export').onclick=()=>{const blob=new Blob([abc.value],{
 render();
 document.getElementById('midi').onclick=function(){
   try {
-    const midi=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'binary',chordsOff:true});
-    if (!(midi instanceof Blob)) throw new Error('Keine MIDI-Datei erzeugt.');
-    const link=document.createElement('a');
-    link.href=URL.createObjectURL(midi);
-    link.download='file-io-test.mid';
-    link.click();
-    setTimeout(function(){URL.revokeObjectURL(link.href)},1000);
-    status.textContent='MIDI-Datei erzeugt: '+midi.size+' Bytes.';
+    const holder=document.getElementById('midiLink');
+    holder.innerHTML=ABCJS.synth.getMidiFile(abc.value,{
+      midiOutputType:'link',
+      chordsOff:true,
+      fileName:'file-io-test.mid',
+      downloadLabel:'MIDI-Datei herunterladen'
+    });
+    const link=holder.querySelector('a');
+    if(!link) throw new Error('abcjs hat keinen Download-Link erzeugt.');
+    status.textContent='MIDI ist erzeugt. Jetzt „MIDI-Datei herunterladen“ antippen.';
   } catch(e) {
     status.textContent='MIDI-Exportfehler: '+e.message;
   }
