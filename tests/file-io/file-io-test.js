@@ -1,3 +1,4 @@
+let currentTune=null;
 const file=document.getElementById('file'),abc=document.getElementById('abc'),paper=document.getElementById('paper'),status=document.getElementById('status');
 function render(){
   try{
@@ -24,7 +25,8 @@ document.getElementById('export').onclick=()=>{const blob=new Blob([abc.value],{
 render();
 document.getElementById('midi').addEventListener('click',function(e){
   try{
-    const encoded=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'encoded',chordsOff:true});
+    if(!currentTune)throw new Error('Keine gerenderte Partitur für MIDI vorhanden.');
+    const encoded=ABCJS.synth.getMidiFile(currentTune,{midiOutputType:'encoded',chordsOff:true});
     if(!encoded||typeof encoded!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
     this.href=encoded;
     this.download='file-io-test.mid';
