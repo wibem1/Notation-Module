@@ -1,8 +1,34 @@
-// Notation Module v0.1.8 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.10 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
   getABC(){return this.abc;}
+  static instruments(){
+    return [
+      {id:'piano',label:'Klavier',program:0},
+      {id:'violin',label:'Violine',program:40},
+      {id:'viola',label:'Viola',program:41},
+      {id:'cello',label:'Violoncello',program:42},
+      {id:'contrabass',label:'Kontrabass',program:43},
+      {id:'flute',label:'Flöte',program:73},
+      {id:'oboe',label:'Oboe',program:68},
+      {id:'clarinet',label:'Klarinette',program:71},
+      {id:'bassoon',label:'Fagott',program:70},
+      {id:'trumpet',label:'Trompete',program:56},
+      {id:'horn',label:'Horn',program:60}
+    ];
+  }
+  setInstrument(id){
+    const instrument=NotationModule.instruments().find(x=>x.id===id);
+    if(!instrument)throw new Error('Unbekanntes Instrument.');
+    const lines=this.abc.split('\n').filter(line=>!/^%%MIDI program\s+/i.test(line));
+    const v=lines.findIndex(line=>/^V:1(?:\s|$)/.test(line));
+    if(v<0)throw new Error('Stimme V:1 fehlt.');
+    lines[v]=lines[v].replace(/\s+name="[^"]*"/g,'').replace(/\s+subname="[^"]*"/g,'')+` name="${instrument.label}" subname=""`;
+    lines.splice(v,0,`%%MIDI program ${instrument.program}`);
+    this.loadABC(lines.join('\n'));
+    return instrument;
+  }
   getScale(){return this.scale;}
   setScale(scale){const value=Math.max(0.6,Math.min(1.6,Number(scale)||1));this.scale=Math.round(value*10)/10;if(this.abc)this.render();return this.scale;}
   render(){
