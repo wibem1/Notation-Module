@@ -1,5 +1,13 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.19
+- Praxistest des dreistimmigen Stücks: Playback und Mehrstimmigkeit funktionieren; grafischer Restfehler war ein einzelner Takt als sehr kurzes letztes System.
+- abcjs-Dokumentation bestätigt: `lastLineLimit` versucht Einzeltakte am Schluss zu vermeiden, `preferredMeasuresPerLine` ist jedoch nur ein Zielwert; `lineBreaks` wäre die Alternative für vollständig eigene Umbruchlogik.
+- Noch keine eigene `lineBreaks`-Engine eingeführt. Stattdessen zunächst kleinste robuste Korrektur innerhalb des abcjs-Wrappings: Mehrsystem-Partituren verwenden konservativ 3 statt 4 bevorzugte Takte pro System.
+- Einstimmige Partituren behalten den bisherigen Zielwert 4.
+- Zieltest mit dem unveränderten Mehrstimmigkeitstest: ausgewogenere Verteilung (statt 4+1 möglichst 3+2), kein isolierter kurzer Schlussblock; Skalierung weiterhin bei mehreren Größen prüfen.
+- Falls dies bei komplexeren Partituren nicht robust ist, folgt als eigener Entwicklungsschritt eine berechnete `lineBreaks`-Strategie statt weiterer Wrap-Patches.
+
 ## 2026-09-23 — v0.1.18
 - Eigenes Mehrstimmigkeitsteststück als neuer Standardtest eingebaut.
 - Drei gleichzeitig laufende Stimmen/Systeme: Violine (GM 40), Violoncello (GM 42) und Klavier (GM 0).
