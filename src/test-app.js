@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.21';
+import {NotationModule} from './notation-module.js?v=0.1.22';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
@@ -42,7 +42,9 @@ $('scaleUp').onclick=()=>changeScale(0.1);
 $('play').onclick=()=>notation.play().catch(e=>status.textContent='Wiedergabefehler: '+e.message);
 $('stop').onclick=()=>notation.stop();
 $('print').onclick=()=>notation.print();
-$('saveABC').onclick=()=>{const blob=new Blob([notation.getABC()],{type:'text/vnd.abc;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='partitur.abc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+$('saveABC').onclick=()=>download(new Blob([notation.getABC()],{type:'text/vnd.abc;charset=utf-8'}),'partitur.abc');
+$('saveMIDI').onclick=()=>{try{const bytes=notation.getMidiBytes();download(new Blob([bytes],{type:'audio/midi'}),'partitur.mid');status.textContent='MIDI-Datei exportiert.'}catch(e){status.textContent='MIDI-Exportfehler: '+e.message}};
 $('resetABC').onclick=()=>{abc.value=defaultABC;try{localStorage.removeItem(ABC_STORAGE_KEY)}catch(_){}render()};
 showScale();
 render();
