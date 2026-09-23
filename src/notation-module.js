@@ -1,4 +1,4 @@
-// Notation Module v0.1.13 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.14 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},onSelect=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.onSelect=onSelect;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
@@ -54,6 +54,18 @@ export class NotationModule {
     voiceNames.forEach((node,index)=>{if(index>0)node.remove();});
     this.onStatus(this.visualObj?'Partitur gerendert.':'Keine Partitur erzeugt.');
     return this.visualObj;
+  }
+  selectFromABC(start,end=start){
+    if(!this.visualObj||!Number.isInteger(start))return false;
+    const probe=Math.max(0,start);
+    const elem=this.visualObj.getElementFromChar?.(probe);
+    const target=Array.isArray(elem)?elem[0]:elem;
+    const svgElements=target?.abselem?.elemset||target?.elemset||target?.elements;
+    const paper=typeof this.paper==='string'?document.getElementById(this.paper):this.paper;
+    paper?.querySelectorAll('.abcjs-editor-selected').forEach(el=>el.classList.remove('abcjs-editor-selected'));
+    const nodes=Array.isArray(svgElements)?svgElements:[];
+    nodes.forEach(el=>el?.classList?.add('abcjs-editor-selected'));
+    return nodes.length>0;
   }
   async play(){
     if(!this.visualObj)throw new Error('Keine Partitur geladen.');
