@@ -1,5 +1,14 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.15
+- Praxistest v0.1.14 zeigte eine falsche Mehrfachmarkierung im Notenbild.
+- Ursache: Die erste Eigenimplementierung versuchte DOM/SVG-Elemente aus `getElementFromChar()` selbst zu markieren. Das ist nicht der von abcjs für Editor-Auswahlen vorgesehene Weg.
+- Korrektur nach abcjs-eigener Editor-Implementierung: Auswahl läuft jetzt über `visualObj.engraver.rangeHighlight(start,end)`.
+- Bei einem bloßen Cursor ohne Textauswahl wird zuerst mit `getElementFromChar()` die konkrete Note ermittelt und anschließend exakt deren `startChar/endChar` an `rangeHighlight` übergeben.
+- Dadurch verwaltet abcjs das Löschen der alten und das Setzen der neuen Auswahl selbst.
+- Zusätzlich sichtbaren Inkonsistenz aus dem Screenshot korrigiert: Instrumentenauswahl wird beim Rendern aus `%%MIDI program` synchronisiert. Ein gespeichertes Trompetenstück zeigt daher nicht mehr fälschlich „Violine“ im Auswahlfeld.
+- Zieltest: Cursor nacheinander in einzelne ABC-Noten setzen; immer genau eine passende Note soll markiert sein. Instrumentenfeld muss zum gespeicherten ABC passen.
+
 ## 2026-09-23 — v0.1.14
 - Gegenrichtung der Auswahl ergänzt: ABC-Editor → Notenbild.
 - Grundlage ist abcjs `getElementFromChar(start)`, dieselbe Zuordnung, die abcjs in seinem Editor-Beispiel für `selectionChangeCallback` verwendet.
