@@ -1,5 +1,14 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.18
+- Eigenes Mehrstimmigkeitsteststück als neuer Standardtest eingebaut.
+- Drei gleichzeitig laufende Stimmen/Systeme: Violine (GM 40), Violoncello (GM 42) und Klavier (GM 0).
+- Verwendung von `%%score` und expliziten `V:`-Stimmen; abcjs erzeugt bei mehreren Stimmen getrennte Audio-Tracks.
+- Violine enthält zusätzlich Triole und Vorschlagsnote; Klavier enthält notierte Akkorde. Automatische Akkordsymbol-Begleitung bleibt weiterhin deaktiviert.
+- Testziel: korrekte vertikale Systemausrichtung, gleichzeitige Wiedergabe aller drei Instrumente, unterschiedliche Klangfarben sowie Auswahl Notenbild ↔ ABC über mehrere Stimmen hinweg.
+- Die bisherige einzelne Instrumentenauswahl ist für eine echte Mehrstimmenpartitur konzeptionell noch unzureichend; sie bleibt vorerst sichtbar, wird aber in einem Folgeschritt zu einer Stimmen-/Instrumentenverwaltung erweitert.
+- Nach Update einmal „Zurücksetzen“, da der ABC-Testtext lokal gespeichert wird.
+
 ## 2026-09-23 — v0.1.17
 - Automatische Akkordbegleitung im Standard-Playback deaktiviert.
 - Sichtbare Akkordsymbole wie `"Am"` bleiben im Notenbild erhalten, erzeugen aber keine zusätzliche Begleitspur mehr.
