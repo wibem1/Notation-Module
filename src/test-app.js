@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.13';
+import {NotationModule} from './notation-module.js?v=0.1.14';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
@@ -27,8 +27,15 @@ function render(){try{notation.loadABC(abc.value)}catch(e){status.textContent='F
 function persist(){try{localStorage.setItem(ABC_STORAGE_KEY,abc.value)}catch(_){}}
 function showScale(){ $('scaleValue').textContent=Math.round(notation.getScale()*100)+' %'; }
 function changeScale(delta){const scale=notation.setScale(notation.getScale()+delta);try{localStorage.setItem(SCALE_STORAGE_KEY,String(scale))}catch(_){}showScale();}
+function selectScoreFromEditor(){
+  const start=abc.selectionStart,end=abc.selectionEnd;
+  if(notation.selectFromABC(start,end))status.textContent='Note zur ABC-Auswahl markiert.';
+}
 $('render').onclick=()=>{persist();render()};
 abc.addEventListener('input',()=>{persist();clearTimeout(window.__renderTimer);window.__renderTimer=setTimeout(render,180)});
+abc.addEventListener('select',selectScoreFromEditor);
+abc.addEventListener('keyup',selectScoreFromEditor);
+abc.addEventListener('click',selectScoreFromEditor);
 instrumentSelect.onchange=()=>{try{const item=notation.setInstrument(instrumentSelect.value);abc.value=notation.getABC();persist();status.textContent=item.label+' gewählt.'}catch(e){status.textContent='Instrumentenfehler: '+e.message}};
 $('scaleDown').onclick=()=>changeScale(-0.1);
 $('scaleUp').onclick=()=>changeScale(0.1);
