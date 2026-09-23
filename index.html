@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notation Module 0.1.22</title>
+<title>Notation Module 0.1.23</title>
+<link rel="manifest" href="./manifest.webmanifest?v=0.1.23">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Notation Module">
 <script src="https://cdn.jsdelivr.net/npm/abcjs@6.5.2/dist/abcjs-basic-min.js"></script>
 <style>
 :root{font-family:system-ui,-apple-system,sans-serif;color:#202124;background:#eef1f4}*{box-sizing:border-box}
@@ -22,7 +26,7 @@ h2{font-size:15px;margin:0 0 10px}textarea{width:100%;height:calc(100% - 78px);m
   #paper svg{display:block!important;width:100%!important;max-width:none!important;height:auto!important;break-inside:avoid;page-break-inside:avoid}
 }
 </style></head><body>
-<header><strong>Notation Module</strong><span class="status">Test-WebApp · v0.1.22</span></header>
+<header><strong>Notation Module</strong><span class="status">Test-WebApp · v0.1.23</span></header>
 <main>
 <section class="panel editorPanel"><h2>ABC</h2><textarea id="abc">X:1
 T:Notation Module – Mehrstimmigkeitstest
@@ -47,4 +51,4 @@ V:Pno
 <div class="toolbar"><button id="render">Aktualisieren</button><button id="saveABC">ABC speichern</button><button id="saveMIDI">MIDI speichern</button><button id="resetABC">Zurücksetzen</button></div></section>
 <section class="panel scorePanel"><h2>Noten</h2><div class="toolbar instrumentToolbar"><label for="instrument">Instrument</label><select id="instrument"></select></div><div class="toolbar scaleToolbar"><span>Darstellung</span><button id="scaleDown" title="Noten kleiner">−</button><strong id="scaleValue">100 %</strong><button id="scaleUp" title="Noten größer">+</button></div><div id="paper"></div><div class="toolbar"><button id="play">▶ Play</button><button id="stop">■ Stop</button><button id="print">Drucken / PDF</button></div><p id="status" class="status"></p></section>
 </main>
-<script type="module" src="./src/test-app.js?v=0.1.22"></script></body></html>
+<script type="module" src="./src/test-app.js?v=0.1.23"></script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=0.1.23").catch(()=>{}));}</script></body></html>
