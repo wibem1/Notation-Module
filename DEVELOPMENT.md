@@ -1,5 +1,11 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.11
+- Fehler aus v0.1.9/v0.1.10 korrigiert: `subname=""` wird nicht mehr erzeugt.
+- Nach ABC-Standard bezeichnet `name` nur das erste System; `subname` ist ausdrücklich für alle Folgesysteme bestimmt. Für „nur einmal anzeigen“ muss `subname` daher fehlen.
+- Instrumentenwechsel entfernt vorhandene `name/nm/subname/snm`-Angaben und setzt ausschließlich `name`.
+- Zieltest nach „Zurücksetzen“: Instrumentenname nur am ersten System; Folgesysteme ohne Instrumentenbezeichnung.
+
 ## 2026-09-23 — v0.1.10
 - Zentrale Instrumentenverwaltung im Notation Module begonnen.
 - Instrumentenauswahl setzt automatisch sichtbaren Stimmnamen und passendes General-MIDI-Programm; MIDI-Nummern müssen nicht manuell eingegeben werden.
