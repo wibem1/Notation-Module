@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notation Module 0.1.0</title>
+<title>Notation Module 0.1.2</title>
 <script src="https://cdn.jsdelivr.net/npm/abcjs@6.5.2/dist/abcjs-basic-min.js"></script>
 <style>
 :root{font-family:system-ui,-apple-system,sans-serif;color:#202124;background:#eef1f4}*{box-sizing:border-box}
@@ -13,7 +13,7 @@ h2{font-size:15px;margin:0 0 10px}textarea{width:100%;height:calc(100% - 78px);m
 @media(max-width:750px){main{grid-template-columns:1fr;height:auto}textarea{height:38vh}.panel{min-height:44vh}}
 @media print{header,.editorPanel{display:none!important}body,main,.panel{background:#fff;border:0;padding:0;margin:0}main{display:block;height:auto}.scorePanel{overflow:visible}button,.status{display:none!important}#paper svg{width:100%}}
 </style></head><body>
-<header><strong>Notation Module</strong><span class="status">Test-WebApp · v0.1.0</span></header>
+<header><strong>Notation Module</strong><span class="status">Test-WebApp · v0.1.2</span></header>
 <main>
 <section class="panel editorPanel"><h2>ABC</h2><textarea id="abc">X:1
 T:Notation Module – Test
@@ -27,4 +27,4 @@ V:1 name="Violine" clef=treble
 <div class="toolbar"><button id="render">Aktualisieren</button><button id="saveABC">ABC speichern</button></div></section>
 <section class="panel scorePanel"><h2>Noten</h2><div id="paper"></div><div class="toolbar"><button id="play">▶ Play</button><button id="stop">■ Stop</button><button id="print">Drucken / PDF</button></div><p id="status" class="status"></p></section>
 </main>
-<script type="module" src="./src/test-app.js"></script></body></html>
+<script type="module" src="./src/test-app.js?v=0.1.2"></script></body></html>
