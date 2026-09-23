@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.20
+- Mehrstimmigkeitstest: Schlussstrich korrigiert.
+- Violine, Violoncello und Klavier enden nun jeweils explizit mit dem ABC-Schlusszeichen `|]`.
+- Dadurch soll der dünn-dicke Schlussstrich in allen drei Systemen erscheinen, nicht nur im Klaviersystem.
+- Sonstige Notensatz- und Wrap-Logik aus v0.1.19 bleibt unverändert.
+- Instrumentennamen im ersten System werden separat korrigiert.
+
 ## 2026-09-23 — v0.1.19
 - Praxistest des dreistimmigen Stücks: Playback und Mehrstimmigkeit funktionieren; grafischer Restfehler war ein einzelner Takt als sehr kurzes letztes System.
 - abcjs-Dokumentation bestätigt: `lastLineLimit` versucht Einzeltakte am Schluss zu vermeiden, `preferredMeasuresPerLine` ist jedoch nur ein Zielwert; `lineBreaks` wäre die Alternative für vollständig eigene Umbruchlogik.
