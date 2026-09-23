@@ -1,5 +1,16 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.8
+- ABC Tools gezielt als Referenz untersucht, nicht als Architekturvorlage.
+- Erkenntnis aus ABC Tools: Notensatzgröße und Seitenfluss werden getrennt behandelt; `%%staffwidth` steuert die verfügbare Satzbreite, und ABC Tools unterstützt `%%scale` über neu berechnete Seitenränder. Für PDF werden Layoutwerte nur temporär injiziert.
+- abcjs-Dokumentation gegengeprüft: `scale` ist eine echte Engraving-Skalierung; `responsive: "resize"` dagegen skaliert nur das fertige SVG. `wrap` benötigt `staffwidth`.
+- v0.1.8 verwendet deshalb keine CSS-/Browser-Zoomfunktion und kein `responsive: "resize"`.
+- Die sichtbare Seitenbreite bleibt fest. Bei größerer Notensatzgröße wird die interne `staffwidth` entsprechend kleiner berechnet; abcjs setzt die Takte mit `wrap` neu.
+- CSS-Zwang `max-width:100%` am SVG entfernt, der zuvor zu abgeschnittenem Inhalt beitragen konnte.
+- Standard-Teststück auf 16 Takte erweitert, damit echter Systemumbruch beurteilt werden kann.
+- Testbereich bewusst zunächst 60–160 %.
+- Zieltest: Zurücksetzen → 80/100/130/160 % vergleichen. Symbole müssen tatsächlich größer/kleiner werden; die rechte Kante darf nicht verschwinden; größere Darstellung muss bei Bedarf mehr Systeme erzeugen.
+
 ## 2026-09-23 — v0.1.7
 - Skalierung aus v0.1.5/v0.1.6 grundlegend korrigiert: keine bloße Verbreiterung mit horizontalem Abschneiden/Scrollen.
 - Verfügbare Breite des Notenbereichs wird beim Rendern ermittelt.
