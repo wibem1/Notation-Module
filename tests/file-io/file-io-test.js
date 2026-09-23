@@ -22,3 +22,17 @@ file.addEventListener('change',async()=>{const f=file.files&&file.files[0];if(!f
 document.getElementById('render').onclick=render;
 document.getElementById('export').onclick=()=>{const blob=new Blob([abc.value],{type:'text/vnd.abc;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='file-io-test.abc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 render();
+document.getElementById('midi').onclick=function(){
+  try {
+    const midi=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'binary',chordsOff:true});
+    if (!(midi instanceof Blob)) throw new Error('Keine MIDI-Datei erzeugt.');
+    const link=document.createElement('a');
+    link.href=URL.createObjectURL(midi);
+    link.download='file-io-test.mid';
+    link.click();
+    setTimeout(function(){URL.revokeObjectURL(link.href)},1000);
+    status.textContent='MIDI-Datei erzeugt: '+midi.size+' Bytes.';
+  } catch(e) {
+    status.textContent='MIDI-Exportfehler: '+e.message;
+  }
+};
