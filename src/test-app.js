@@ -1,4 +1,4 @@
-import {NotationModule} from './notation-module.js?v=0.1.14';
+import {NotationModule} from './notation-module.js?v=0.1.15';
 const $=id=>document.getElementById(id), status=$('status'), abc=$('abc');
 const ABC_STORAGE_KEY='notation-module.test-app.abc';
 const SCALE_STORAGE_KEY='notation-module.test-app.scale';
@@ -23,7 +23,7 @@ const notation=new NotationModule({
 const instrumentSelect=$('instrument');
 NotationModule.instruments().forEach(item=>{const option=document.createElement('option');option.value=item.id;option.textContent=item.label;instrumentSelect.appendChild(option)});
 instrumentSelect.value='violin';
-function render(){try{notation.loadABC(abc.value)}catch(e){status.textContent='Fehler: '+e.message}}
+function render(){try{notation.loadABC(abc.value);const current=notation.getInstrument();if(current)instrumentSelect.value=current.id}catch(e){status.textContent='Fehler: '+e.message}}
 function persist(){try{localStorage.setItem(ABC_STORAGE_KEY,abc.value)}catch(_){}}
 function showScale(){ $('scaleValue').textContent=Math.round(notation.getScale()*100)+' %'; }
 function changeScale(delta){const scale=notation.setScale(notation.getScale()+delta);try{localStorage.setItem(SCALE_STORAGE_KEY,String(scale))}catch(_){}showScale();}
