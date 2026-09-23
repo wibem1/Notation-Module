@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.12
+- Ursache der wiederholten Instrumentenbezeichnung im abcjs-Quellcode nachvollzogen: Beim nachträglichen `wrap` werden Eigenschaften des ursprünglichen Systems auf neu erzeugte Systeme kopiert; dadurch bleibt der bereits aufgelöste Stimmtitel erhalten.
+- ABC-Text bleibt unverändert und korrekt (`name` ohne `subname`).
+- Nach dem Rendern werden ausschließlich zusätzliche `.abcjs-voice-name`-Elemente ab dem zweiten Vorkommen entfernt.
+- Notensatzskalierung, `wrap`, Playback und Instrumentenzuordnung bleiben unverändert.
+- Zieltest: „Violine“ genau einmal am ersten System; Wechsel z.B. zu Violoncello zeigt „Violoncello“ ebenfalls genau einmal.
+
 ## 2026-09-23 — v0.1.11
 - Fehler aus v0.1.9/v0.1.10 korrigiert: `subname=""` wird nicht mehr erzeugt.
 - Nach ABC-Standard bezeichnet `name` nur das erste System; `subname` ist ausdrücklich für alle Folgesysteme bestimmt. Für „nur einmal anzeigen“ muss `subname` daher fehlen.
