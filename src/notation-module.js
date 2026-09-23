@@ -1,4 +1,4 @@
-// Notation Module v0.1.11 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.12 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
@@ -47,6 +47,10 @@ export class NotationModule {
       wrap:{minSpacing:1.8,maxSpacing:2.7,preferredMeasuresPerLine:4,lastLineLimit:2}
     });
     this.visualObj=out[0]||null;
+    // abcjs wrap copies the first-system voice title to generated systems.
+    // Keep only the first rendered voice label; do not alter ABC or audio data.
+    const voiceNames=el?.querySelectorAll('.abcjs-voice-name')||[];
+    voiceNames.forEach((node,index)=>{if(index>0)node.remove();});
     this.onStatus(this.visualObj?'Partitur gerendert.':'Keine Partitur erzeugt.');
     return this.visualObj;
   }
