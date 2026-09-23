@@ -1,5 +1,14 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.5
+- Skalierung als reguläre Funktion des Notation Modules ergänzt: `getScale()` und `setScale()`.
+- Bereich 50–200 %, Schritte von 10 %.
+- Test-WebApp erhält „Darstellung − 100 % +“ direkt über der Partitur.
+- Gewählte Darstellungsgröße wird lokal gespeichert und beim nächsten Aufruf wiederhergestellt.
+- Die Skalierung nutzt den abcjs-Renderparameter `scale`; es handelt sich nicht um Browser-Zoom.
+- Playback bleibt an die jeweils neu gerenderte Fassung gekoppelt.
+- Bildschirm-Skalierung und spätere Druck-Skalierung bleiben konzeptionell getrennt.
+
 ## 2026-09-23 — v0.1.4
 - iPad-Drucktest: System-Druckdialog funktioniert, das Notenbild nutzte die A4-Seite jedoch viel zu klein.
 - Druck-CSS auf A4-Hochformat mit 15-mm-Rändern umgestellt.
