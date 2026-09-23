@@ -1,8 +1,10 @@
+let currentTune=null;
 const file=document.getElementById('file'),abc=document.getElementById('abc'),paper=document.getElementById('paper'),status=document.getElementById('status');
 function render(){
   try{
     const out=ABCJS.renderAbc(paper,abc.value,{add_classes:true});
     const tunes=out.length;
+    currentTune=out[0]||null;
     const notes=paper.querySelectorAll('.abcjs-note').length;
     const rests=paper.querySelectorAll('.abcjs-rest').length;
     const bars=paper.querySelectorAll('.abcjs-bar').length;
@@ -25,8 +27,8 @@ render();
 document.getElementById('midi').addEventListener('click',function(){
   try{
     const download=document.getElementById('midi-download');
-    const result=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'encoded',chordsOff:true});
-    const midi=Array.isArray(result)?result[0]:result;
+    if(!currentTune)throw new Error('Keine gerenderte Partitur vorhanden.');
+    const midi=ABCJS.synth.getMidiFile(currentTune,{midiOutputType:'encoded',chordsOff:true});
     if(!midi||typeof midi!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
     download.setAttribute('href',midi);
     download.click();
