@@ -22,19 +22,15 @@ file.addEventListener('change',async()=>{const f=file.files&&file.files[0];if(!f
 document.getElementById('render').onclick=render;
 document.getElementById('export').onclick=()=>{const blob=new Blob([abc.value],{type:'text/vnd.abc;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='file-io-test.abc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 render();
-document.getElementById('midi').onclick=function(){
-  try {
-    const holder=document.getElementById('midiLink');
-    holder.innerHTML=ABCJS.synth.getMidiFile(abc.value,{
-      midiOutputType:'link',
-      chordsOff:true,
-      fileName:'file-io-test.mid',
-      downloadLabel:'MIDI-Datei herunterladen'
-    });
-    const link=holder.querySelector('a');
-    if(!link) throw new Error('abcjs hat keinen Download-Link erzeugt.');
-    status.textContent='MIDI ist erzeugt. Jetzt „MIDI-Datei herunterladen“ antippen.';
-  } catch(e) {
-    status.textContent='MIDI-Exportfehler: '+e.message;
+document.getElementById('midi').addEventListener('click',function(e){
+  try{
+    const encoded=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'encoded',chordsOff:true});
+    if(!encoded||typeof encoded!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
+    this.href=encoded;
+    this.download='file-io-test.mid';
+    status.textContent='MIDI-Download gestartet.';
+  }catch(err){
+    e.preventDefault();
+    status.textContent='MIDI-Exportfehler: '+err.message;
   }
-};
+});
