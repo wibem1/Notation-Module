@@ -1,5 +1,13 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.4
+- iPad-Drucktest: System-Druckdialog funktioniert, das Notenbild nutzte die A4-Seite jedoch viel zu klein.
+- Druck-CSS auf A4-Hochformat mit 15-mm-Rändern umgestellt.
+- Im Druck werden Überschrift der Testoberfläche, Editor, Bedienelemente und Status ausgeblendet; die Partitur nutzt die verfügbare Seitenbreite.
+- Einzelne SVG-Partituren werden nicht innerhalb eines Systems umgebrochen.
+- Nächster Test: Druckvorschau auf dem iPad; danach längere Partitur und saubere Mehrseiten-Paginierung.
+- abcjs bietet dafür `print` und `oneSvgPerLine`; letzteres ermöglicht saubere Seitenumbrüche und wird für den Mehrseitentest separat geprüft.
+
 ## 2026-09-23 — v0.1.3
 - Test-WebApp erhält lokales Gedächtnis für den ABC-Text über `localStorage`.
 - ABC-Änderungen werden automatisch lokal gespeichert und beim nächsten Aufruf wiederhergestellt.
