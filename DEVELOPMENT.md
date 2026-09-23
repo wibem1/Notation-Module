@@ -1,5 +1,19 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.23 — stabiler Referenzstand
+- v0.1.22-MIDI-Export unverändert übernommen und im Hauptmodul bestätigt: gerenderte abcjs-Partitur → `getMidiFile(..., {midiOutputType:'binary'})` → `Uint8Array` → `Blob(type:'audio/midi')` → temporärer Object-URL-Download. Dieser Weg entspricht dem bereits bewährten Downloadmechanismus aus Minimal Composer.
+- PWA-Grundlage ergänzt: `manifest.webmanifest` und `sw.js`.
+- Service Worker verwendet einen versionsgebundenen Cache (`notation-module-v0.1.23`), löscht alte Caches bei Aktivierung und arbeitet online network-first. Dadurch werden neue Releases in der Home-Bildschirm-WebApp zuverlässig aktualisiert; der Cache dient als Offline-Fallback.
+- Praxistest auf dem iPad: direkter Link und WebApp funktionieren nach v0.1.23.
+
+### Fehleranalyse / verbindliche Lehren aus v0.1.22–v0.1.23
+- Beim MIDI-Export wurde unnötig lange ABC Tools untersucht, obwohl Minimal Composer bereits einen funktionierenden Binärdaten-/Blob-Download enthielt. Künftig vor einer Neuentwicklung zuerst die eigenen stabilen Apps nach einem bewährten Mechanismus durchsuchen.
+- Fehlerquellen strikt trennen: **Programmcode**, **GitHub-Pages-Deployment** und **Browser/PWA-Cache** werden unabhängig geprüft.
+- Keine Fehlerursache behaupten, bevor der betreffende Mechanismus im Repository geprüft wurde. Insbesondere wurde zunächst irrtümlich ein Service Worker als Ursache genannt, obwohl noch keiner existierte.
+- Bei mehreren unmittelbar aufeinanderfolgenden GitHub-Commits können Pages-Deployments zeitweise unterschiedliche Datei-Stände ausliefern. Einen Testlink erst nach abgeschlossenem letzten Deployment freigeben.
+- Einen vom Nutzer bestätigten funktionierenden Kern nicht während einer angrenzenden Fehlerbehebung erneut umbauen. Der bestätigte MIDI-Code wurde deshalb beim PWA-Schritt nicht verändert.
+
+
 ## 2026-09-23 — v0.1.22
 - Erste Dateiaustausch-Stufe eingebaut.
 - ABC-Import über Dateiauswahl (.abc/.txt): Datei wird in den Editor geladen, lokal gespeichert und sofort neu gerendert.
