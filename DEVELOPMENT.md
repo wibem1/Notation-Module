@@ -1,5 +1,13 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.17
+- Automatische Akkordbegleitung im Standard-Playback deaktiviert.
+- Sichtbare Akkordsymbole wie `"Am"` bleiben im Notenbild erhalten, erzeugen aber keine zusätzliche Begleitspur mehr.
+- Umsetzung über abcjs-Syntheseoption `chordsOff: true`.
+- Notierte Akkorde wie `[A2c2]` bleiben Bestandteil der eigentlichen Stimme und werden weiterhin mit deren Instrument wiedergegeben.
+- Grundregel: Das Notation Module erfindet standardmäßig keine zusätzlichen Playback-Instrumente. Eine Akkordbegleitung kann später als bewusst zuschaltbare Funktion ergänzt werden.
+- Zieltest: Artikulationstest abspielen; kein zusätzliches Klavier beim Akkordsymbol, Violinenstimme einschließlich notiertem Doppelgriff/Akkord bleibt hörbar.
+
 ## 2026-09-23 — v0.1.16
 - Einfaches 16-Takt-Teststück durch ein gezieltes anspruchsvolleres Notensatz-Teststück ergänzt.
 - Enthalten: Auftakt, Triolen, normale Vorschlagnote, kurze Vorschlagnote/Acciaccatura, Bindebögen, Haltebogen, Akkord, Akkordsymbol, punktierte Werte, Pausen und gebrochener Rhythmus.
