@@ -1,5 +1,11 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.9
+- Praxistest v0.1.8: Skalierung funktioniert.
+- Instrumentenbezeichnung korrigiert: ABC `name="Violine"` ist für die Bezeichnung des ersten Systems gedacht; `subname=""` verhindert eine wiederholte Bezeichnung in Folgesystemen.
+- Playback-Instrument explizit auf General-MIDI-Programm 40 (Violine, nullbasiert) gesetzt; abcjs verwendet sonst standardmäßig Programm 0 (Acoustic Grand Piano).
+- Zieltest: „Violine“ nur am ersten System; Playback mit Violinenklang.
+
 ## 2026-09-23 — v0.1.8
 - ABC Tools gezielt als Referenz untersucht, nicht als Architekturvorlage.
 - Erkenntnis aus ABC Tools: Notensatzgröße und Seitenfluss werden getrennt behandelt; `%%staffwidth` steuert die verfügbare Satzbreite, und ABC Tools unterstützt `%%scale` über neu berechnete Seitenränder. Für PDF werden Layoutwerte nur temporär injiziert.
