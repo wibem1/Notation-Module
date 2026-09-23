@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.16
+- Einfaches 16-Takt-Teststück durch ein gezieltes anspruchsvolleres Notensatz-Teststück ergänzt.
+- Enthalten: Auftakt, Triolen, normale Vorschlagnote, kurze Vorschlagnote/Acciaccatura, Bindebögen, Haltebogen, Akkord, Akkordsymbol, punktierte Werte, Pausen und gebrochener Rhythmus.
+- Teststück bleibt einstimmig Violine, damit Fehler im Notensatz eindeutig einzelnen Funktionen zugeordnet werden können.
+- Zieltest: Darstellung, Skalierung, bidirektionale ABC-Auswahl und Playback mit diesen erweiterten ABC-Konstrukten prüfen.
+- Nach Update einmal „Zurücksetzen“ nötig, da die Test-App den bisherigen ABC-Text lokal speichert.
+
 ## 2026-09-23 — v0.1.15
 - Praxistest v0.1.14 zeigte eine falsche Mehrfachmarkierung im Notenbild.
 - Ursache: Die erste Eigenimplementierung versuchte DOM/SVG-Elemente aus `getElementFromChar()` selbst zu markieren. Das ist nicht der von abcjs für Editor-Auswahlen vorgesehene Weg.
