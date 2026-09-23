@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.1
+- Praxistest auf dem iPad: ABC-Livebearbeitung aktualisierte das Notenbild korrekt, danach konnte das Playback jedoch ausfallen.
+- Playback-Zustand beim Laden/geänderten ABC jetzt sauber zurückgesetzt.
+- Jede gerenderte Fassung erhält intern eine Revision; verspätet fertig werdende Audio-Initialisierungen einer älteren Fassung werden nicht mehr gestartet.
+- iOS-Zustände `suspended`/`interrupted` des AudioContext werden nach dem Priming berücksichtigt.
+- Zieltest: ABC ändern → neues Notenbild → Play muss die geänderte Fassung wiedergeben.
+
 ## 2026-09-23 — v0.1.0
 - Eigenständige Test-WebApp angelegt.
 - Modulcode und Testoberfläche getrennt.
