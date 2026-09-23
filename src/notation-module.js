@@ -1,4 +1,4 @@
-// Notation Module v0.1.21 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.22 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},onSelect=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.onSelect=onSelect;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
@@ -61,6 +61,12 @@ export class NotationModule {
     voiceNames.forEach((node,index)=>{if(index>=voiceCount)node.remove();});
     this.onStatus(this.visualObj?'Partitur gerendert.':'Keine Partitur erzeugt.');
     return this.visualObj;
+  }
+  getMidiBytes(){
+    if(!this.visualObj)throw new Error('Keine Partitur geladen.');
+    const bytes=window.ABCJS?.synth?.getMidiFile?.(this.visualObj,{midiOutputType:'binary',chordsOff:true});
+    if(!(bytes instanceof Uint8Array)||!bytes.length)throw new Error('abcjs hat keine MIDI-Binärdaten erzeugt.');
+    return bytes;
   }
   getInstrument(){
     const match=this.abc.match(/^%%MIDI program\s+(\d+)/mi);
