@@ -1,5 +1,13 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.7
+- Skalierung aus v0.1.5/v0.1.6 grundlegend korrigiert: keine bloße Verbreiterung mit horizontalem Abschneiden/Scrollen.
+- Verfügbare Breite des Notenbereichs wird beim Rendern ermittelt.
+- `scale` wird mit passendem `staffwidth` und abcjs-`wrap` kombiniert.
+- Bei größeren Noten werden Takte auf zusätzliche Systeme verteilt; bei kleineren Noten passen entsprechend mehr Takte in ein System.
+- Partitur bleibt innerhalb des Notenbereichs.
+- Zieltest: 80 %, 100 %, 130 % und 160 % vergleichen; Notengröße muss sich ändern, ohne dass der rechte Rand verloren geht.
+
 ## 2026-09-23 — v0.1.6
 - Fehler aus v0.1.5 korrigiert: abcjs-`scale` wurde gleichzeitig mit `responsive: "resize"` verwendet.
 - `responsive: "resize"` skaliert das erzeugte SVG wieder auf die verfügbare Containerbreite; dadurch war die gewählte Notengröße praktisch nicht sichtbar.
