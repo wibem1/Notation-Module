@@ -1,4 +1,4 @@
-// Notation Module v0.1.10 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.11 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
@@ -24,7 +24,7 @@ export class NotationModule {
     const lines=this.abc.split('\n').filter(line=>!/^%%MIDI program\s+/i.test(line));
     const v=lines.findIndex(line=>/^V:1(?:\s|$)/.test(line));
     if(v<0)throw new Error('Stimme V:1 fehlt.');
-    lines[v]=lines[v].replace(/\s+name="[^"]*"/g,'').replace(/\s+subname="[^"]*"/g,'')+` name="${instrument.label}" subname=""`;
+    lines[v]=lines[v].replace(/\s+(?:name|nm|subname|snm)="[^"]*"/gi,'')+` name="${instrument.label}"`;
     lines.splice(v,0,`%%MIDI program ${instrument.program}`);
     this.loadABC(lines.join('\n'));
     return instrument;
