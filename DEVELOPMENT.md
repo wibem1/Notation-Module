@@ -1,5 +1,14 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.10
+- Zentrale Instrumentenverwaltung im Notation Module begonnen.
+- Instrumentenauswahl setzt automatisch sichtbaren Stimmnamen und passendes General-MIDI-Programm; MIDI-Nummern müssen nicht manuell eingegeben werden.
+- Erste Zuordnungen: Klavier, Violine, Viola, Violoncello, Kontrabass, Flöte, Oboe, Klarinette, Fagott, Trompete, Horn.
+- Test-WebApp erhält eine Instrumentenauswahl.
+- Das 16-taktige Teststück startet als Violine; beim Wechsel des Instruments werden ABC-Stimmname und Playback-Programm gemeinsam geändert.
+- abcjs verwendet standardmäßig Programm 0, wenn im ABC kein Instrument angegeben ist; die neue Modulschicht verhindert dieses Auseinanderfallen von Bezeichnung und Klang.
+- Zieltest: Teststück abspielen, dann z.B. Violoncello, Flöte und Klavier wählen; sichtbarer Instrumentenname und Klang müssen gemeinsam wechseln.
+
 ## 2026-09-23 — v0.1.9
 - Praxistest v0.1.8: Skalierung funktioniert.
 - Instrumentenbezeichnung korrigiert: ABC `name="Violine"` ist für die Bezeichnung des ersten Systems gedacht; `subname=""` verhindert eine wiederholte Bezeichnung in Folgesystemen.
