@@ -31,8 +31,8 @@ document.getElementById('midi').addEventListener('click',function(){
     const midi=ABCJS.synth.getMidiFile(currentTune,{midiOutputType:'encoded',chordsOff:true});
     if(!midi||typeof midi!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
     download.setAttribute('href',midi);
-    download.click();
-    status.textContent='MIDI-Datei erzeugt.';
+    download.style.display='inline-block';
+    status.textContent='MIDI-Datei vorbereitet. Jetzt „MIDI-Datei laden“ antippen.';
   }catch(err){
     status.textContent='MIDI-Exportfehler: '+err.message;
   }
