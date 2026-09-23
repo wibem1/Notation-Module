@@ -1,5 +1,12 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.21
+- Mehrstimmigkeitstest: fehlende Instrumentennamen und falsches Nur-Klavier-Playback korrigiert.
+- Die bisherige Nachbearbeitung entfernte alle `.abcjs-voice-name` außer dem ersten. Bei mehreren Stimmen werden jetzt im ersten System so viele Namen erhalten, wie `V:`-Stimmen deklariert sind; nur durch `wrap` kopierte Wiederholungen werden entfernt.
+- MIDI-Programme werden nicht mehr als Inline-`[V:...] %%MIDI` geschrieben. Stattdessen wird jede Stimme mit einer normalen `V:`-Zeile aktiviert und danach `%%MIDI program` gesetzt: Violine 40, Violoncello 42, Klavier 0.
+- abcjs erzeugt bei mehreren Stimmen getrennte Tracks; ohne wirksame Instrumentzuweisung fällt der Synth auf Programm 0 (Klavier) zurück.
+- Zieltest nach „Zurücksetzen“: Im ersten System stehen Violine, Violoncello und Klavier; Folgesysteme wiederholen die Namen nicht. Playback muss drei unterscheidbare Klangfarben gleichzeitig liefern.
+
 ## 2026-09-23 — v0.1.20
 - Mehrstimmigkeitstest: Schlussstrich korrigiert.
 - Violine, Violoncello und Klavier enden nun jeweils explizit mit dem ABC-Schlusszeichen `|]`.
