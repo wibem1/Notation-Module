@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notation Module 0.1.15</title>
+<title>Notation Module 0.1.16</title>
 <script src="https://cdn.jsdelivr.net/npm/abcjs@6.5.2/dist/abcjs-basic-min.js"></script>
 <style>
 :root{font-family:system-ui,-apple-system,sans-serif;color:#202124;background:#eef1f4}*{box-sizing:border-box}
@@ -22,10 +22,10 @@ h2{font-size:15px;margin:0 0 10px}textarea{width:100%;height:calc(100% - 78px);m
   #paper svg{display:block!important;width:100%!important;max-width:none!important;height:auto!important;break-inside:avoid;page-break-inside:avoid}
 }
 </style></head><body>
-<header><strong>Notation Module</strong><span class="status">Test-WebApp · v0.1.15</span></header>
+<header><strong>Notation Module</strong><span class="status">Test-WebApp · v0.1.16</span></header>
 <main>
 <section class="panel editorPanel"><h2>ABC</h2><textarea id="abc">X:1
-T:Notation Module – Test
+T:Notation Module – Artikulationstest
 C:
 M:3/4
 L:1/8
@@ -33,11 +33,11 @@ Q:1/4=84
 K:Dm
 %%MIDI program 40
 V:1 name="Violine" clef=treble
-|: D2 F2 A2 | d3 c B2 | A2 G2 F2 | E6 |
-D2 E2 F2 | A2 G2 F2 | E2 D2 C2 | D6 |
-A2 A2 B2 | c3 B A2 | G2 F2 E2 | D6 |
-F2 A2 d2 | c2 B2 A2 | G2 E2 C2 | D6 :|</textarea>
+A | (D2 F2) (3A B c | {e}d2 c2 B2 | {/A}G2 F2 E2 |
+D3-E D2 | (3FGA A2 {B}A | "Am"[A2c2] G2 F2 | E4 z A |
+(3dcd B2 A2 | {g}f2 e2 d2 | c>B A<G F2 | E3 F G A |
+(3Bcd (e2 d2) | {/e}d2 c2 B2 | A2 G2 F2 | D5 |]</textarea>
 <div class="toolbar"><button id="render">Aktualisieren</button><button id="saveABC">ABC speichern</button><button id="resetABC">Zurücksetzen</button></div></section>
 <section class="panel scorePanel"><h2>Noten</h2><div class="toolbar instrumentToolbar"><label for="instrument">Instrument</label><select id="instrument"></select></div><div class="toolbar scaleToolbar"><span>Darstellung</span><button id="scaleDown" title="Noten kleiner">−</button><strong id="scaleValue">100 %</strong><button id="scaleUp" title="Noten größer">+</button></div><div id="paper"></div><div class="toolbar"><button id="play">▶ Play</button><button id="stop">■ Stop</button><button id="print">Drucken / PDF</button></div><p id="status" class="status"></p></section>
 </main>
-<script type="module" src="./src/test-app.js?v=0.1.15"></script></body></html>
+<script type="module" src="./src/test-app.js?v=0.1.16"></script></body></html>
