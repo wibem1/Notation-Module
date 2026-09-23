@@ -1,11 +1,11 @@
-// Notation Module v0.1.5 — app-independent ABC rendering/playback core.
+// Notation Module v0.1.6 — app-independent ABC rendering/playback core.
 export class NotationModule {
   constructor({paper,onStatus=()=>{},scale=1}={}){this.paper=paper;this.onStatus=onStatus;this.abc='';this.visualObj=null;this.synth=null;this.audioContext=null;this.revision=0;this.scale=scale;}
   loadABC(abc){if(typeof abc!=='string'||!abc.trim())throw new Error('ABC-Text fehlt.');this.stop(false);this.synth=null;this.abc=abc;this.revision++;return this.render();}
   getABC(){return this.abc;}
   getScale(){return this.scale;}
   setScale(scale){const value=Math.max(0.5,Math.min(2,Number(scale)||1));this.scale=Math.round(value*10)/10;if(this.abc)this.render();return this.scale;}
-  render(){if(!window.ABCJS)throw new Error('abcjs ist nicht geladen.');const out=window.ABCJS.renderAbc(this.paper,this.abc,{responsive:'resize',add_classes:true,scale:this.scale});this.visualObj=out[0]||null;this.onStatus(this.visualObj?'Partitur gerendert.':'Keine Partitur erzeugt.');return this.visualObj;}
+  render(){if(!window.ABCJS)throw new Error('abcjs ist nicht geladen.');const out=window.ABCJS.renderAbc(this.paper,this.abc,{add_classes:true,scale:this.scale});this.visualObj=out[0]||null;this.onStatus(this.visualObj?'Partitur gerendert.':'Keine Partitur erzeugt.');return this.visualObj;}
   async play(){
     if(!this.visualObj)throw new Error('Keine Partitur geladen.');
     this.stop(false);
