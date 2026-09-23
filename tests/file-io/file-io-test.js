@@ -1,4 +1,3 @@
-let currentTune=null;
 const file=document.getElementById('file'),abc=document.getElementById('abc'),paper=document.getElementById('paper'),status=document.getElementById('status');
 function render(){
   try{
@@ -23,16 +22,15 @@ file.addEventListener('change',async()=>{const f=file.files&&file.files[0];if(!f
 document.getElementById('render').onclick=render;
 document.getElementById('export').onclick=()=>{const blob=new Blob([abc.value],{type:'text/vnd.abc;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='file-io-test.abc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 render();
-document.getElementById('midi').addEventListener('click',function(e){
+document.getElementById('midi').addEventListener('click',function(){
   try{
-    if(!currentTune)throw new Error('Keine gerenderte Partitur für MIDI vorhanden.');
-    const encoded=ABCJS.synth.getMidiFile(currentTune,{midiOutputType:'encoded',chordsOff:true});
-    if(!encoded||typeof encoded!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
-    this.href=encoded;
-    this.download='file-io-test.mid';
-    status.textContent='MIDI-Download gestartet.';
+    const download=document.getElementById('midi-download');
+    const midi=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'encoded',chordsOff:true});
+    if(!midi||typeof midi!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
+    download.setAttribute('href',midi);
+    download.click();
+    status.textContent='MIDI-Datei erzeugt.';
   }catch(err){
-    e.preventDefault();
     status.textContent='MIDI-Exportfehler: '+err.message;
   }
 });
