@@ -52,6 +52,12 @@ NotationModule.exportPDF()
 
 Die konkrete API wird erst nach einem kleinen abcjs-Prototyp verbindlich festgelegt.
 
+## Technischer Referenzstand v0.1.23
+- MIDI-Export: binäre Daten aus abcjs, anschließend Blob/Object-URL-Download. Kein Data-URI-Export.
+- WebApp: versionsgebundener Service-Worker-Cache mit network-first Strategie und Offline-Fallback.
+- Versionswechsel müssen gleichzeitig in HTML-Modulreferenzen, Modulversion und Service-Worker-Cache nachvollziehbar sein.
+- Die PWA-Schicht gehört zur Test-/Host-App; der app-unabhängige Notationskern bleibt davon getrennt.
+
 ## Entwicklungsregeln
 - Modul unabhängig entwickeln und testen.
 - Eigene Versionsnummer.
@@ -59,3 +65,8 @@ Die konkrete API wird erst nach einem kleinen abcjs-Prototyp verbindlich festgel
 - Keine App-Abhängigkeiten.
 - Erst hör-/sichtbaren Nutzen nachweisen, dann Komplexität ergänzen.
 - Bestehende Apps erst integrieren, wenn das Modul eigenständig stabil funktioniert.
+- Vor einer neuen technischen Lösung zuerst prüfen, ob Minimal Composer, MusicChat oder ein anderes eigenes stabiles Projekt den benötigten Mechanismus bereits zuverlässig implementiert.
+- Programmfehler, Deployment-Fehler und Cache-/PWA-Fehler getrennt diagnostizieren.
+- Keine unbestätigte technische Ursache als Tatsache behandeln.
+- Testfreigabe erst nach abgeschlossenem letzten GitHub-Pages-Deployment.
+- Bestätigt funktionierenden Code bei angrenzenden Reparaturen nicht unnötig verändern.
