@@ -25,7 +25,8 @@ render();
 document.getElementById('midi').addEventListener('click',function(){
   try{
     const download=document.getElementById('midi-download');
-    const midi=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'encoded',chordsOff:true});
+    const result=ABCJS.synth.getMidiFile(abc.value,{midiOutputType:'encoded',chordsOff:true});
+    const midi=Array.isArray(result)?result[0]:result;
     if(!midi||typeof midi!=='string')throw new Error('abcjs hat keine MIDI-Daten erzeugt.');
     download.setAttribute('href',midi);
     download.click();
