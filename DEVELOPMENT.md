@@ -1,5 +1,14 @@
 # Entwicklungsprotokoll
 
+## 2026-09-23 — v0.1.13
+- Erste Richtung der bidirektionalen Auswahl umgesetzt: Notenbild → ABC-Editor.
+- abcjs-`clickListener` liefert das geklickte interne Element; dessen `startChar`/`endChar` werden als Zeichenbereich im ursprünglichen ABC verwendet.
+- Notation Module gibt die Auswahl über `onSelect({start,end,element})` an die aufrufende Oberfläche weiter; das Modul kennt weiterhin keinen konkreten Editor.
+- Test-WebApp fokussiert daraufhin das ABC-Feld, markiert exakt den zugehörigen Zeichenbereich und scrollt die Stelle ungefähr in die sichtbare Mitte.
+- Skalierung, Instrumente, Playback und Persistenz bleiben unverändert.
+- Zieltest: verschiedene einzelne Noten in unterschiedlichen Systemen anklicken; im ABC-Editor muss jeweils die passende Note markiert werden.
+- Nächster isolierter Schritt nach erfolgreichem Test: ABC-Auswahl → entsprechende Note im Notenbild.
+
 ## 2026-09-23 — v0.1.12
 - Ursache der wiederholten Instrumentenbezeichnung im abcjs-Quellcode nachvollzogen: Beim nachträglichen `wrap` werden Eigenschaften des ursprünglichen Systems auf neu erzeugte Systeme kopiert; dadurch bleibt der bereits aufgelöste Stimmtitel erhalten.
 - ABC-Text bleibt unverändert und korrekt (`name` ohne `subname`).
